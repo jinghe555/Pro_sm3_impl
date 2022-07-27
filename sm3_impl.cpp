@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-//Ê®½øÖÆ×ª¶ş½øÖÆ
+//åè¿›åˆ¶è½¬äºŒè¿›åˆ¶
 string dec_bin(int dec)
 {
 	string bin = "";
@@ -12,9 +12,9 @@ string dec_bin(int dec)
 		bin = to_string(dec % 2) + bin;
 		dec = dec / 2;
 	}
-	return bin;//·µ»Ø¶ÔÓ¦µÄ¶ş½øÖÆ
+	return bin;//è¿”å›å¯¹åº”çš„äºŒè¿›åˆ¶
 }
-//Ê®Áù½øÖÆ×ª¶ş½øÖÆ
+//åå…­è¿›åˆ¶è½¬äºŒè¿›åˆ¶
 string hex_bin(string str)
 {
 	string bin = "";
@@ -32,7 +32,7 @@ string hex_bin(string str)
 	}
 	return bin;
 }
-//¶ş½øÖÆ×ªÊ®Áù½øÖÆ
+//äºŒè¿›åˆ¶è½¬åå…­è¿›åˆ¶
 string bin_hex(string str)
 {
 	string hex = "";
@@ -78,14 +78,14 @@ string bin_hex(string str)
 	}
 	return hex;
 }
-//×óÒÆÎ»
+//å·¦ç§»ä½
 string LeftShift(string str, int num)
 {
 	string res = hex_bin(str);
 	res = res.substr(num) + res.substr(0, num);
 	return bin_hex(res);
 }
-//Òì»ò
+//å¼‚æˆ–
 string XOR(string str1, string str2)
 {
 	string res = "";
@@ -104,17 +104,17 @@ string XOR(string str1, string str2)
 	}
 	return bin_hex(res);
 }
-//P0ÖÃ»»
+//P0ç½®æ¢
 string P0(string str)
 {
 	return XOR(XOR(str, LeftShift(str, 9)), LeftShift(str, 17));
 }
-//P1ÖÃ»»
+//P1ç½®æ¢
 string P1(string str)
 {
 	return XOR(XOR(str, LeftShift(str, 15)), LeftShift(str, 23));
 }
-//»ò²Ù×÷
+//æˆ–æ“ä½œ
 string OR(string str1, string str2)
 {
 	string res = "";
@@ -133,7 +133,7 @@ string OR(string str1, string str2)
 	}
 	return bin_hex(res);
 }
-//·Ç²Ù×÷
+//éæ“ä½œ
 string NOT(string str)
 {
 	string res = "";
@@ -151,7 +151,7 @@ string NOT(string str)
 	}
 	return bin_hex(res);
 }
-//Óë²Ù×÷
+//ä¸æ“ä½œ
 string AND(string str1, string str2)
 {
 	string res = "";
@@ -194,7 +194,7 @@ string GG_j(string str1, string str2, string str3, int num)
 		return OR(AND(str1, str2), AND(NOT(str1), str3));
 	}
 }
-//³£Á¿T³õÊ¼»¯
+//å¸¸é‡Tåˆå§‹åŒ–
 static string init_T(int j)
 {
 	string T;
@@ -216,7 +216,7 @@ char ccand(char c1, char c2)
 {
 	return (c1 == '1' && c2 == '1') ? '1' : '0';
 }
-//Ä£ÔËËã£¿
+//æ¨¡è¿ç®—
 string Mod(string str1, string str2)
 {
 	string res1 = hex_bin(str1);
@@ -244,46 +244,46 @@ string Mod(string str1, string str2)
 	}
 	return bin_hex(res);
 }
-//ÏûÏ¢Ìî³ä
+//æ¶ˆæ¯å¡«å……
 string padding(string str)
 {
-	int n;//ÊäÈëÏûÏ¢³¤¶È
+	int n;//è¾“å…¥æ¶ˆæ¯é•¿åº¦
 	n = str.length();
-	int r_n = n;//¼ÇÂ¼Ô­Ê¼ÏûÏ¢³¤¶È
+	int r_n = n;//è®°å½•åŸå§‹æ¶ˆæ¯é•¿åº¦
 	int k = 0;
 	while ((n + 1 + k) % 512 != 448)
 	{
 		k += 1;
-		str += '0';//Ìî³ä0
+		str += '0';//å¡«å……0
 	}
-	//n = n + 1 + k;//ÏÖÔÚµÄÏûÏ¢³¤¶È
+	//n = n + 1 + k;//ç°åœ¨çš„æ¶ˆæ¯é•¿åº¦
 	string llen = dec_bin(r_n);
 	int llength = llen.size();
 	for (int i = 0; i <= (64 - llength); i++)
 	{
 		llen = '0' + llen;
 	}
-	str = str + llen;//Ìî³äÍê³É
+	str = str + llen;//å¡«å……å®Œæˆ
 	//cout << str;
 	return str;
 }
-//ÏûÏ¢À©Õ¹
+//æ¶ˆæ¯æ‰©å±•
 string extension(string str)
 {
-	//½«ÏûÏ¢·Ö×é»®·ÖÎª16¸ö×ÖW_i
-	string WW = str;//´æ´¢À©Õ¹×Ö
+	//å°†æ¶ˆæ¯åˆ†ç»„åˆ’åˆ†ä¸º16ä¸ªå­—W_i
+	string WW = str;//å­˜å‚¨æ‰©å±•å­—
 	for (int j = 16; j < 68; j++)
 	{
 		WW += XOR(XOR(P1(XOR(XOR(WW.substr((j - 16) * 8, 8), WW.substr((j - 9) * 8, 8)), LeftShift(WW.substr((j - 3) * 8, 8), 15))), LeftShift(WW.substr((j - 13) * 8, 8), 7)), WW.substr((j - 6) * 8, 8));
 	}
-	//64¸öW¡¯
+	//64ä¸ªWâ€™
 	for (int j = 0; j < 64; j++)
 	{
 		WW += XOR(WW.substr((j * 8), 8), WW.substr((j + 4) * 8, 8));
 	}
 	return WW;
 }
-//ÏûÏ¢Ñ¹Ëõ
+//æ¶ˆæ¯å‹ç¼©
 string compress(string str1, string str2)
 {
 	string IV = str2;
@@ -313,7 +313,7 @@ string compress(string str1, string str2)
 	//cout << "a2" << res;
 	return res;
 }
-//µü´úÑ¹Ëõº¯Êı
+//è¿­ä»£å‹ç¼©å‡½æ•°
 string iteration(string str)
 {
 	int num = str.size() / 128;
@@ -338,8 +338,8 @@ string iteration(string str)
 }
 int main()
 {
-	cout << "ÇëÊäÈë£º";
-	int message;//ÊäÈëÏûÏ¢
+	cout << "è¯·è¾“å…¥ï¼š";
+	int message;//è¾“å…¥æ¶ˆæ¯
 	cin >> message;
 	string Mmessage = dec_bin(message);
 	//Mmessage = bin_hex(Mmessage);
@@ -348,6 +348,6 @@ int main()
 	//cout << "pad" << paddingmessage;
 	//cout << "padOK";
 	string result = iteration(paddingmessage);
-	cout << "½á¹û£º" << result;
+	cout << "ç»“æœï¼š" << result;
 	return 0;
 }
